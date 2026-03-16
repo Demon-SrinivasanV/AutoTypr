@@ -48,7 +48,7 @@ This is the file AutoTypr will read from. Paste or type whatever content you wan
 
 > You can change this path by editing line 4 of `AutoTyprScript.ahk`:
 > ```ahk
-> FilePath := "C:\Users\<YourUsername>\Desktop\AutoTyprContent.txt"
+> FilePath := "C:\path\to\your\AutoTyprContent.txt"
 > ```
 
 ### Step 4 — Run the Script
