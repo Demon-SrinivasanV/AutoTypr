@@ -31,7 +31,7 @@ When triggered, the script:
 Clone this repository or download `AutoTyprScript.ahk` directly:
 
 ```bash
-git clone https://github.com/your-username/AutoTypr.git
+git clone https://github.com/Demon-SrinivasanV/AutoTypr.git
 ```
 
 Or click **Code → Download ZIP** on the GitHub page and extract it.
@@ -41,7 +41,7 @@ Or click **Code → Download ZIP** on the GitHub page and extract it.
 Create a plain text file at the following path:
 
 ```
-C:\Users\<YourUsername>\Desktop\AutoTyprContent.txt
+C:\path\to\your\AutoTyprContent.txt
 ```
 
 This is the file AutoTypr will read from. Paste or type whatever content you want automatically typed into it.
