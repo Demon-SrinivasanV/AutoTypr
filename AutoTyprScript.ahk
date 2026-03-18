@@ -1,42 +1,51 @@
 ^q:: ; Trigger when Ctrl + Q is pressed
 {
-    ; Specify the file path
+    ; Path to the file containing the text to be typed
     FilePath := "C:\path\to\your\AutoTyprContent.txt"
-    
-    ; Check if the file exists
+
+    ; Check if the file exists, show error and exit if not
     if !FileExist(FilePath)
     {
         MsgBox, 16, Error, The specified file does not exist: %FilePath%
         return
     }
-    
-    ; Read the file content
+
+    ; Read the file contents into FileContent
     FileRead, FileContent, %FilePath%
-    
-    ; Check for errors in reading the file
+
+    ; Check if file read failed, show error and exit if so
     if ErrorLevel
     {
         MsgBox, 16, Error, Failed to read the file: %FilePath%
         return
     }
-    
-    ; Force CapsLock OFF before typing to prevent casing issues on VDI
-    SetCapsLockState, off
-    
-    ; Normalize line endings by replacing `\r\n` with `\n`
+
+    ; Use Event mode to simulate real keystrokes
+    SendMode, Event
+    ; Set key delay to 0 for fastest possible typing
+    SetKeyDelay, 0, 0
+
+    ; Normalize line endings to LF only (remove CR from CRLF)
     StringReplace, FileContent, FileContent, `r`n, `n, All
-    
-    ; Input the content character by character
+
+    ; Loop through each line in the file
     Loop, Parse, FileContent, `n
     {
-        ; Send each character of the current line
+        ; Loop through each character in the current line
         Loop, Parse, A_LoopField
         {
-            SendRaw, %A_LoopField%
+            char := A_LoopField
+            ; Get the decimal Unicode code point of the character
+            code := Asc(char)
+            ; Convert decimal to 4-digit uppercase hex (e.g. 65 -> 0041)
+            hex := Format("{:04X}", code)
+            ; Send the character using its Unicode code point
+            Send, {U+%hex%}
         }
-        
-        ; Add a single newline after each line
+
+        ; Send Enter at the end of each line
         Send, {Enter}
     }
+
     return
 }
